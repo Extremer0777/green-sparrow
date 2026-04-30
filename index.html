@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Sparrow Enterprise | Digital Marketing & Development Agency</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Green Sparrow Enterprise bridges the gap between AI-driven efficiency and human-centric design. We offer Website Development, eCommerce, SEO, and AI-Powered Marketing.">
+    <meta name="keywords" content="Digital Marketing, Web Development, SEO, eCommerce, AI Marketing, Green Sparrow Enterprise">
+    <meta name="author" content="Green Sparrow Enterprise">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://greensparrowenterprise.com">
+    <meta property="og:title" content="Green Sparrow Enterprise | Build Smarter. Grow Faster.">
+    <meta property="og:description" content="Organic digital growth for the modern enterprise.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#1B4D3E',
+                        emerald: '#10B981',
+                        leaf: '#84CC16',
+                        cream: '#F9FAFB',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Logo Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .logo-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Form Focus Ring Customization */
+        .input-focus:focus {
+            outline: none;
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans antialiased">
+
+    <!-- Sticky Header -->
+    <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="logo-float w-10 h-10 relative">
+                        <!-- SVG Sparrow Logo -->
+                        <img src="logo.jpg" alt="Green Sparrow Enterprise Logo" class="w-full h-full object-contain drop-shadow-md">
+                            <!-- Body -->
+                            <path d="M50 55C50 55 35 45 35 35C35 25 45 20 50 20C55 20 65 25 65 35C65 45 50 55 50 55Z" fill="#1B4D3E"/>
+                            <!-- Left Wing (Leaf) -->
+                            <path d="M50 45C50 45 20 30 20 50C20 65 40 60 50 50" fill="#84CC16" stroke="#1B4D3E" stroke-width="2"/>
+                            <!-- Right Wing (Leaf) -->
+                            <path d="M50 45C50 45 80 30 80 50C80 65 60 60 50 50" fill="#10B981" stroke="#1B4D3E" stroke-width="2"/>
+                            <!-- Beak -->
+                            <path d="M50 25L60 28L50 30" fill="#F59E0B"/>
+                            <!-- Eye -->
+                            <circle cx="45" cy="32" r="2" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-forest tracking-tight leading-none">Green Sparrow</span>
+                        <span class="text-xs text-emerald font-medium tracking-widest uppercase">Enterprise</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-gray-600 hover:text-forest font-medium transition-colors">Home</a>
+                    <a href="#services" class="text-gray-600 hover:text-forest font-medium transition-colors">Services</a>
+                    <a href="#about" class="text-gray-600 hover:text-forest font-medium transition-colors">About</a>
+                    <a href="#contact" class="px-5 py-2.5 bg-forest text-white rounded-full font-medium hover:bg-emerald transition-colors shadow-lg shadow-forest/20">Contact Us</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-forest focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-forest hover:bg-green-50 rounded-md">Home</a>
+                <a href="#services" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-forest hover:bg-green-50 rounded-md">Services</a>
+                <a href="#about" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-forest hover:bg-green-50 rounded-md">About</a>
+                <a href="#contact" class="block px-3 py-3 text-base font-medium text-forest font-bold hover:bg-green-50 rounded-md">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Decorative Elements -->
+        <div class="absolute top-0 right-0 -z-10 opacity-10 translate-x-1/3 -translate-y-1/4">
+            <svg width="600" height="600" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#10B981" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-5.3C93.5,8.6,82.2,21.5,71.1,32.6C60,43.7,49.1,53,37.2,60.6C25.3,68.2,12.4,74.1,-1.1,76C-14.6,77.9,-29.2,75.8,-41.8,68.8C-54.4,61.8,-65,50,-73.3,36.5C-81.6,23,-87.6,7.8,-85.6,-6.4C-83.6,-20.6,-73.6,-33.8,-62.6,-43.8C-51.6,-53.8,-39.6,-60.6,-27.3,-69.1C-15,-77.6,-2.4,-87.8,7.9,-86.5C18.2,-85.2,30.5,-83.6,44.7,-76.4Z" transform="translate(100 100)" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="fade-in-up">
+                <span class="inline-block py-1 px-3 rounded-full bg-green-100 text-forest text-sm font-semibold mb-6 tracking-wide uppercase border border-green-200">
+                    Sustainable Digital Solutions
+                </span>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-gray-900 mb-6 leading-tight">
+                    Build Smarter.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-forest via-emerald to-leaf">Grow Faster.</span><br>
+                    Lead Digitally.
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-600 mb-10 leading-relaxed">
+                    Organic digital growth for the modern enterprise. We bridge the gap between AI-driven efficiency and human-centric design.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#contact" class="px-8 py-4 bg-forest text-white rounded-full font-semibold text-lg hover:bg-emerald transition-all shadow-xl shadow-forest/30 hover:shadow-forest/50 transform hover:-translate-y-1">
+                        Get Started
+                    </a>
+                    <a href="#services" class="px-8 py-4 bg-white text-forest border-2 border-forest rounded-full font-semibold text-lg hover:bg-green-50 transition-all">
+                        View Work
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Stats or Trust Indicators -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-gray-200 pt-10 fade-in-up">
+                <div>
+                    <div class="text-3xl font-bold text-forest">100%</div>
+                    <div class="text-sm text-gray-500 mt-1">Client Satisfaction</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-forest">50+</div>
+                    <div class="text-sm text-gray-500 mt-1">Projects Delivered</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-forest">24/7</div>
+                    <div class="text-sm text-gray-500 mt-1">Support Available</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-forest">AI+</div>
+                    <div class="text-sm text-gray-500 mt-1">Powered Marketing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-forest font-semibold tracking-wide uppercase text-sm">What We Do</h2>
+                <h3 class="mt-2 text-3xl md:text-4xl font-serif font-bold text-gray-900">Core Services</h3>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-500">Comprehensive digital solutions tailored to elevate your brand presence and drive revenue.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-b-4 border-forest group fade-in-up">
+                    <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-forest transition-colors duration-300">
+                        <i class="fas fa-code text-2xl text-forest group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Website Development</h4>
+                    <p class="text-gray-600 leading-relaxed">Robust, clean-coded, and lightning-fast websites built with modern frameworks for optimal performance.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-b-4 border-emerald group fade-in-up" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald transition-colors duration-300">
+                        <i class="fas fa-shopping-cart text-2xl text-emerald group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">eCommerce Solutions</h4>
+                    <p class="text-gray-600 leading-relaxed">Scalable online stores designed to convert visitors into loyal customers with seamless UX.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-b-4 border-leaf group fade-in-up" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-leaf transition-colors duration-300">
+                        <i class="fas fa-search text-2xl text-leaf group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">SEO Optimization</h4>
+                    <p class="text-gray-600 leading-relaxed">Ranking your brand where it belongs—at the top. Data-driven strategies for organic visibility.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-b-4 border-forest group fade-in-up" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-forest transition-colors duration-300">
+                        <i class="fas fa-robot text-2xl text-forest group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">AI-Powered Marketing</h4>
+                    <p class="text-gray-600 leading-relaxed">Leveraging automation and social media intelligence for sustainable, long-term growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Why Us Section -->
+    <section id="about" class="py-20 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 fade-in-up">
+                    <div class="relative">
+                        <div class="absolute -top-4 -left-4 w-24 h-24 bg-leaf/20 rounded-full blur-xl"></div>
+                        <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-emerald/20 rounded-full blur-xl"></div>
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Team Collaboration" class="relative rounded-2xl shadow-2xl w-full object-cover h-[400px]">
+                        
+                        <!-- Floating Card -->
+                        <div class="absolute bottom-6 left-6 bg-white p-4 rounded-xl shadow-lg max-w-xs hidden md:block">
+                            <div class="flex items-center gap-3">
+                                <div class="flex -space-x-2">
+                                    <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white"></div>
+                                    <div class="w-8 h-8 rounded-full bg-gray-300 border-2 border-white"></div>
+                                    <div class="w-8 h-8 rounded-full bg-forest border-2 border-white flex items-center justify-center text-white text-xs">+</div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-gray-900">Expert Team</p>
+                                    <p class="text-xs text-gray-500">Ready to assist you</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 fade-in-up">
+                    <h2 class="text-forest font-semibold tracking-wide uppercase text-sm">Why Choose Us</h2>
+                    <h3 class="mt-2 text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-6">Sustainable Growth Meets High Performance</h3>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        At Green Sparrow Enterprise, we believe in "Eco-Digital Growth." Just like nature, we build systems that are self-sustaining, efficient, and adaptive.
+                    </p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-emerald mt-1 mr-3 text-lg"></i>
+                            <span class="text-gray-700"><strong>Human-Centric Design:</strong> We prioritize user experience while maintaining backend power.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-emerald mt-1 mr-3 text-lg"></i>
+                            <span class="text-gray-700"><strong>AI Integration:</strong> Smart automation to reduce your workload and increase ROI.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-emerald mt-1 mr-3 text-lg"></i>
+                            <span class="text-gray-700"><strong>Transparent Reporting:</strong> Real-time analytics so you always know how your growth is performing.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-forest to-emerald text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div class="fade-in-up">
+                    <h2 class="text-leaf font-semibold tracking-wide uppercase text-sm">Get In Touch</h2>
+                    <h3 class="mt-2 text-3xl md:text-4xl font-serif font-bold mb-6">Let's Start a Conversation</h3>
+                    <p class="text-green-100 mb-10 text-lg">Ready to grow your digital presence? Reach out to our team for a free consultation.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-xl text-leaf"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-green-200 uppercase tracking-wide font-semibold">Email Us</p>
+                                <a href="mailto:greensparrowenterprise@gmail.com" class="text-lg hover:text-leaf transition-colors">greensparrowenterprise@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone-alt text-xl text-leaf"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-green-200 uppercase tracking-wide font-semibold">Call Manager</p>
+                                <a href="tel:+919463543427" class="text-lg hover:text-leaf transition-colors">+91 94635 43427</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-clock text-xl text-leaf"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-green-200 uppercase tracking-wide font-semibold">Working Hours</p>
+                                <p class="text-lg">Mon - Sat: 9:00 AM - 7:00 PM IST</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-white rounded-2xl p-8 shadow-2xl fade-in-up" style="transition-delay: 200ms;">
+                    <h4 class="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h4>
+                    <form id="contactForm" class="space-y-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 input-focus transition-colors bg-gray-50" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 input-focus transition-colors bg-gray-50" placeholder="+91 98765 43210">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 input-focus transition-colors bg-gray-50" placeholder="john@example.com">
+                        </div>
+
+                        <div>
+                            <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Interested Service</label>
+                            <select id="service" name="service" class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 input-focus transition-colors bg-gray-50">
+                                <option value="">Select a service...</option>
+                                <option value="web-dev">Website Development</option>
+                                <option value="ecommerce">eCommerce Solutions</option>
+                                <option value="seo">SEO Optimization</option>
+                                <option value="marketing">AI-Powered Marketing</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-900 input-focus transition-colors bg-gray-50" placeholder="Tell us about your project..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-forest text-white rounded-lg font-bold text-lg hover:bg-emerald transition-all shadow-lg transform hover:-translate-y-1 flex justify-center items-center gap-2">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 text-green-800 rounded-lg text-center">
+                        <i class="fas fa-check-circle mr-2"></i> Thank you! We'll get back to you shortly.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Column -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8">
+                            <img src="logo.jpg" alt="Green Sparrow Enterprise Logo" class="w-full h-full object-contain drop-shadow-md">
+                                <path d="M50 55C50 55 35 45 35 35C35 25 45 20 50 20C55 20 65 25 65 35C65 45 50 55 50 55Z" fill="#10B981"/>
+                                <path d="M50 45C50 45 20 30 20 50C20 65 40 60 50 50" fill="#84CC16"/>
+                                <path d="M50 45C50 45 80 30 80 50C80 65 60 60 50 50" fill="#1B4D3E"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold">Green Sparrow</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Bridging the gap between AI-driven efficiency and human-centric design. Your partner in sustainable digital growth.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#home" class="hover:text-emerald transition-colors">Home</a></li>
+                        <li><a href="#services" class="hover:text-emerald transition-colors">Services</a></li>
+                        <li><a href="#about" class="hover:text-emerald transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-emerald transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white">Services</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-emerald transition-colors">Web Development</a></li>
+                        <li><a href="#" class="hover:text-emerald transition-colors">eCommerce</a></li>
+                        <li><a href="#" class="hover:text-emerald transition-colors">SEO Optimization</a></li>
+                        <li><a href="#" class="hover:text-emerald transition-colors">AI Marketing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white">Connect With Us</h4>
+                    <p class="text-gray-400 text-sm mb-6">Follow our journey and latest updates on social media.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/green.sparrow.enterprise/" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-pink-600 hover:text-white transition-all transform hover:scale-110">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@GreenSparrowEnterprise" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition-all transform hover:scale-110">
+                            <i class="fab fa-youtube text-lg"></i>
+                        </a>
+                        <a href="https://www.facebook.com/greensparrowenterprise" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all transform hover:scale-110">
+                            <i class="fab fa-facebook-f text-lg"></i>
+                        </a>
+                        <a href="mailto:greensparrowenterprise@gmail.com" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-emerald hover:text-white transition-all transform hover:scale-110">
+                            <i class="fas fa-envelope text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm text-center md:text-left">
+                     Green Sparrow Enterprise. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Sticky Header Shadow on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact Form Handling
+        const form = document.getElementById('contactForm');
+        const successMsg = document.getElementById('successMessage');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulate form processing
+            const btn = form.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+
+            setTimeout(() => {
+                // Reset form
+                form.reset();
+                
+                // Show success
+                successMsg.classList.remove('hidden');
+                successMsg.classList.add('fade-in-up', 'visible');
+                
+                // Reset button
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-75');
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMsg.classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
