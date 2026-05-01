@@ -551,23 +551,47 @@
         if (form) {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
+                
                 const btn = form.querySelector('button');
                 const originalText = btn.innerHTML;
+                
+                // Collect Form Data
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const service = document.getElementById('service').value;
+                const message = document.getElementById('message').value;
+
+                // UI Loading State
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 btn.disabled = true;
                 btn.classList.add('opacity-75');
 
+                // Simulate Sending and Trigger Mailto
                 setTimeout(() => {
+                    // Trigger mailto as a way to "actually" send the message
+                    const subject = encodeURIComponent(`New Inquiry from ${name}`);
+                    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\n\nMessage:\n${message}`);
+                    window.location.href = `mailto:greensparrowenterprise@gmail.com?subject=${subject}&body=${body}`;
+
+                    // Reset form and show success UI
                     form.reset();
                     successMsg.classList.remove('hidden');
-                    successMsg.classList.add('fade-in-up', 'visible');
+                    // Small delay to ensure 'hidden' removal is processed before 'visible' adds opacity
+                    setTimeout(() => {
+                        successMsg.classList.add('visible');
+                    }, 10);
+                    
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                     btn.classList.remove('opacity-75');
+
+                    // Hide success message after 5 seconds
                     setTimeout(() => {
-                        successMsg.classList.add('hidden');
+                        successMsg.classList.remove('visible');
+                        setTimeout(() => successMsg.classList.add('hidden'), 800);
                     }, 5000);
-                }, 1500);
+                }, 1000);
             });
         }
 
