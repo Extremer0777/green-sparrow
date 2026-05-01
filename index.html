@@ -69,36 +69,57 @@
             animation: float 3s ease-in-out infinite;
         }
 
+        /* Wiggle Animation for Hint */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .logo-hint:hover .logo-float {
+            animation: wiggle 0.3s ease-in-out infinite;
+        }
+
         /* Form Focus Ring Customization */
         .input-focus:focus {
             outline: none;
             border-color: #10B981;
             box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
         }
+
+        /* Game Overlay Styles */
+        #game-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            backdrop-filter: blur(8px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        #game-canvas {
+            border: 4px solid #10B981;
+            border-radius: 1rem;
+            background: #F9FAFB;
+            max-width: 90vw;
+            max-height: 70vh;
+        }
     </style>
 </head>
 <body class="bg-white text-gray-800 font-sans antialiased">
+    <!-- Hint: Sometimes the sparrow wants to fly. Try clicking it! -->
 
     <!-- Sticky Header -->
     <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group">
+                <a href="javascript:void(0)" id="header-logo" title="Fly high?" class="flex items-center gap-3 group logo-hint">
                     <div class="logo-float w-10 h-10 relative">
-                        <!-- SVG Sparrow Logo -->
+                        <!-- Sparrow Logo -->
                         <img src="logo.jpg" alt="Green Sparrow Enterprise Logo" class="w-full h-full object-contain drop-shadow-md">
-                            <!-- Body -->
-                            <path d="M50 55C50 55 35 45 35 35C35 25 45 20 50 20C55 20 65 25 65 35C65 45 50 55 50 55Z" fill="#1B4D3E"/>
-                            <!-- Left Wing (Leaf) -->
-                            <path d="M50 45C50 45 20 30 20 50C20 65 40 60 50 50" fill="#84CC16" stroke="#1B4D3E" stroke-width="2"/>
-                            <!-- Right Wing (Leaf) -->
-                            <path d="M50 45C50 45 80 30 80 50C80 65 60 60 50 50" fill="#10B981" stroke="#1B4D3E" stroke-width="2"/>
-                            <!-- Beak -->
-                            <path d="M50 25L60 28L50 30" fill="#F59E0B"/>
-                            <!-- Eye -->
-                            <circle cx="45" cy="32" r="2" fill="white"/>
-                        </svg>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xl font-bold text-forest tracking-tight leading-none">Green Sparrow</span>
@@ -327,7 +348,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm text-green-200 uppercase tracking-wide font-semibold">Working Hours</p>
-                                <p class="text-lg">Mon - Sun: 3:00 PM - 10:00 PM IST</p>
+                                <p class="text-lg">Mon - Sat: 9:00 AM - 7:00 PM IST</p>
                             </div>
                         </div>
                     </div>
@@ -461,8 +482,23 @@
         </div>
     </footer>
 
+    <!-- Game Overlay -->
+    <div id="game-overlay">
+        <div class="text-center mb-6">
+            <h2 class="text-4xl font-serif font-bold text-emerald mb-2">Sparrow Fly</h2>
+            <p class="text-gray-300">Space or Click to Jump</p>
+        </div>
+        <canvas id="game-canvas" width="400" height="600"></canvas>
+        <div class="mt-8 flex gap-4">
+            <button id="close-game" class="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-full transition-colors">Close</button>
+            <button id="restart-game" class="px-6 py-2 bg-forest hover:bg-emerald rounded-full transition-colors">Restart</button>
+        </div>
+        <div class="mt-4 text-emerald font-bold text-xl">Score: <span id="game-score">0</span></div>
+    </div>
+
     <!-- JavaScript Logic -->
     <script>
+        // --- Existing Site Logic ---
         // Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
@@ -512,34 +548,208 @@
         const form = document.getElementById('contactForm');
         const successMsg = document.getElementById('successMessage');
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Simulate form processing
-            const btn = form.querySelector('button');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            btn.disabled = true;
-            btn.classList.add('opacity-75');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                btn.disabled = true;
+                btn.classList.add('opacity-75');
 
-            setTimeout(() => {
-                // Reset form
-                form.reset();
-                
-                // Show success
-                successMsg.classList.remove('hidden');
-                successMsg.classList.add('fade-in-up', 'visible');
-                
-                // Reset button
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                btn.classList.remove('opacity-75');
-
-                // Hide success message after 5 seconds
                 setTimeout(() => {
-                    successMsg.classList.add('hidden');
-                }, 5000);
-            }, 1500);
+                    form.reset();
+                    successMsg.classList.remove('hidden');
+                    successMsg.classList.add('fade-in-up', 'visible');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75');
+                    setTimeout(() => {
+                        successMsg.classList.add('hidden');
+                    }, 5000);
+                }, 1500);
+            });
+        }
+
+        // --- Flappy Bird Easter Egg Logic ---
+        const logo = document.getElementById('header-logo');
+        const gameOverlay = document.getElementById('game-overlay');
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('game-score');
+        const closeBtn = document.getElementById('close-game');
+        const restartBtn = document.getElementById('restart-game');
+
+        const logoImg = new Image();
+        logoImg.src = 'logo.jpg';
+
+        let animationId;
+        let score = 0;
+        let gameRunning = false;
+
+        // Bird properties
+        const bird = {
+            x: 50,
+            y: 300,
+            width: 60,
+            height: 60,
+            gravity: 0.6,
+            lift: -10,
+            velocity: 0,
+            draw() {
+                ctx.save();
+                ctx.translate(this.x + this.width/2, this.y + this.height/2);
+                let angle = Math.min(Math.PI/4, Math.max(-Math.PI/4, this.velocity * 0.1));
+                ctx.rotate(angle);
+                
+                // Draw logo.jpg as the bird
+                ctx.drawImage(logoImg, -this.width/2, -this.height/2, this.width, this.height);
+                
+                ctx.restore();
+            },
+            update() {
+                this.velocity += this.gravity;
+                this.y += this.velocity;
+                if (this.y + this.height > canvas.height) {
+                    this.y = canvas.height - this.height;
+                    this.velocity = 0;
+                    gameOver();
+                }
+                if (this.y < 0) {
+                    this.y = 0;
+                    this.velocity = 0;
+                }
+            },
+            jump() {
+                this.velocity = this.lift;
+            }
+        };
+
+        // Pipe properties
+        let pipes = [];
+        const pipeWidth = 60;
+        const pipeGap = 160;
+        const pipeSpeed = 3;
+
+        function createPipe() {
+            let topHeight = Math.random() * (canvas.height - pipeGap - 100) + 50;
+            pipes.push({
+                x: canvas.width,
+                top: topHeight,
+                bottom: canvas.height - topHeight - pipeGap,
+                passed: false
+            });
+        }
+
+        function drawPipes() {
+            pipes.forEach(pipe => {
+                ctx.fillStyle = '#1B4D3E'; // Forest green pipes
+                // Top pipe
+                ctx.fillRect(pipe.x, 0, pipeWidth, pipe.top);
+                // Bottom pipe
+                ctx.fillRect(pipe.x, canvas.height - pipe.bottom, pipeWidth, pipe.bottom);
+                
+                // Pipe caps
+                ctx.fillStyle = '#10B981';
+                ctx.fillRect(pipe.x - 5, pipe.top - 20, pipeWidth + 10, 20);
+                ctx.fillRect(pipe.x - 5, canvas.height - pipe.bottom, pipeWidth + 10, 20);
+            });
+        }
+
+        function updatePipes() {
+            if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 200) {
+                createPipe();
+            }
+
+            pipes.forEach(pipe => {
+                pipe.x -= pipeSpeed;
+
+                // Collision detection
+                if (
+                    bird.x + bird.width > pipe.x &&
+                    bird.x < pipe.x + pipeWidth &&
+                    (bird.y < pipe.top || bird.y + bird.height > canvas.height - pipe.bottom)
+                ) {
+                    gameOver();
+                }
+
+                // Scoring
+                if (!pipe.passed && bird.x > pipe.x + pipeWidth) {
+                    score++;
+                    pipe.passed = true;
+                    scoreElement.innerText = score;
+                }
+            });
+
+            pipes = pipes.filter(pipe => pipe.x + pipeWidth > 0);
+        }
+
+        function gameLoop() {
+            if (!gameRunning) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Background
+            ctx.fillStyle = '#F9FAFB';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            bird.update();
+            bird.draw();
+            updatePipes();
+            drawPipes();
+            
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            cancelAnimationFrame(animationId);
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 40px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2);
+        }
+
+        function resetGame() {
+            bird.y = 300;
+            bird.velocity = 0;
+            pipes = [];
+            score = 0;
+            scoreElement.innerText = score;
+            gameRunning = true;
+            gameLoop();
+        }
+
+        logo.addEventListener('click', () => {
+            gameOverlay.style.display = 'flex';
+            resetGame();
+        });
+
+        closeBtn.addEventListener('click', () => {
+            gameOverlay.style.display = 'none';
+            gameRunning = false;
+            cancelAnimationFrame(animationId);
+        });
+
+        restartBtn.addEventListener('click', resetGame);
+
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && gameRunning) {
+                e.preventDefault();
+                bird.jump();
+            }
+        });
+
+        canvas.addEventListener('mousedown', () => {
+            if (gameRunning) bird.jump();
+        });
+
+        canvas.addEventListener('touchstart', (e) => {
+            if (gameRunning) {
+                e.preventDefault();
+                bird.jump();
+            }
         });
     </script>
 </body>
